@@ -4,6 +4,8 @@ import vitePluginSass from 'vite-plugin-sass-glob-import'
 import sassDts from 'vite-plugin-sass-dts'
 import path from 'path'
 
+console.log('PostCSS config file has been imported');
+
 // https://vitejs.dev/config/
 export default defineConfig({
   css: {
