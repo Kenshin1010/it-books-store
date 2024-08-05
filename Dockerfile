@@ -1,11 +1,14 @@
-FROM node:22
-WORKDIR /usr/src/app
+FROM node:22-alpine
 
-COPY . .
+WORKDIR /app
+
+COPY package.json .
 
 RUN yarn install
 
-EXPOSE 5173
+COPY . .
+
+EXPOSE 8080
 
 # yarn dev
 CMD ["yarn", "dev"]
