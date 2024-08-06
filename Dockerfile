@@ -18,4 +18,4 @@ EXPOSE 80
 # yarn dev
 # CMD ["yarn", "dev"]
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "'daemon off;'"]
