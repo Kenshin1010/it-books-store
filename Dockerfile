@@ -8,7 +8,14 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 8080
+RUN yarn build
+
+FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
+
+EXPOSE 80
 
 # yarn dev
-CMD ["yarn", "dev"]
+# CMD ["yarn", "dev"]
+
+CMD ["nginx", "-g", "daemon off;"]

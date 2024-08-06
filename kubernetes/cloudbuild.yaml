@@ -1,0 +1,25 @@
+steps:
+  # Step 1: Sử dụng image node để cài đặt các phụ thuộc và build ứng dụng
+  - name: 'node:22'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        yarn
+        yarn build
+
+  # Step 2: Sử dụng image gcloud để xây dựng Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/it-books-store-431702', '.']
+
+  # Step 3: Đẩy Docker image lên Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/it-books-store-431702']
+
+  # Step 4: Triển khai ứng dụng lên Google Kubernetes Engine (GKE)
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'kubernetes/deployment.yaml']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'kubernetes/service.yaml']
+images:
+  - 'gcr.io/$PROJECT_ID/it-books-store-431702'

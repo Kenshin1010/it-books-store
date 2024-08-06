@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-books-store
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: it-books-store
+  template:
+    metadata:
+      labels:
+        app: it-books-store
+    spec:
+      containers:
+      - name: it-books-store
+        image: it-books-store:latest
+        ports:
+        - containerPort: 80
